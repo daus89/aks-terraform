@@ -24,8 +24,8 @@ module "aks" {
   resource_group_name = var.resource_group_name
   environment         = var.environment
   subnet_id           = module.networking.private_subnet_id
-  service_cidr   = var.service_cidr
-  dns_service_ip = var.dns_service_ip 
+  service_cidr        = var.service_cidr
+  dns_service_ip      = var.dns_service_ip 
 }
 
 # 🚀 Load Balancer for External Access

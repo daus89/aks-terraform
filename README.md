@@ -24,29 +24,60 @@ aks-terraform/
 | |---resource_group/  
 
 
-
-## Initialize backend for each environment  
-terraform init -backend-config=environments/dev/backend.tf  
-
-## Plan the deploymment
-terraform plan -var-file=environments/dev/dev.tfvars
-
-## Apply the deployment
-terraform apply -var-file=environments/dev/dev.tfvars -auto-approve
-
-# Challenges
-
-1. To get 
+# Terraform commands
 
 
+To see error, use TF_LOG=DEBUG before the tf command, example
+``` TF_LOG=DEBUG terraform plan -var-file=environments/dev/dev.tfvars  
+
+To destroy resources for specific environment:  
+``` terraform destroy -var-file=environments/dev/dev.tfvars
+
+To initialize, plan and provision the resources per environment:
+
+For Dev Env
+``` terraform init -reconfigure -backend-config="path=environments/dev/terraform.tfstate"  
+``` terraform plan -var-file=environments/dev/dev.tfvars
+``` terraform apply -var-file=environments/dev/dev.tfvars 
+
+For QA Env
+``` terraform init -reconfigure -backend-config="path=environments/qa/terraform.tfstate"  
+``` terraform plan -var-file=environments/qa/qa.tfvars   
+``` terraform apply -var-file=environments/qa/qa.tfvars  
+
+For Prod Env
+``` terraform init -reconfigure -backend-config="path=environments/prod/terraform.tfstate"  
+``` terraform plan -var-file=environments/prod/prod.tfvars
+``` terraform apply -var-file=environments/prod/prod.tfvars
+
+# Challenges  
+1. tfstate file stored in root folder instead of environments folder. Still troubleshooting  
+
+2. Overlapped CIDR for AKS and k8s Service CIDR. Resolved by added into modules/k8s/main.tf and declare different CIDR in tfvars file
+``` network_profile {
+    network_plugin = "azure"
+    service_cidr   = var.service_cidr
+    dns_service_ip = var.dns_service_ip 
+  }  
 
 
-# AKS commands from local workstation
+# K8s commands from local workstation
 
 1. Install Azure AKS k8s CLI
-```az aks install-cli
+``` az aks install-cli
 
 2. Login to azure account and set subscription ID
 ``` az login
 ``` az account set --subscription "<SUBSCRIPTION ID>"
+
+3. Get AKS resource group and AKS cluster name
+``` az aks list --query '[].{name:name, resourceGroup:resourceGroup}' -o table
+
+4. Get AKS credentials and merged the login info automatically into local kubeconfig file
+``` az aks get-credentials --resource-group <RESOURCE_GROUP> --name <AKS_CLUSTER_NAME>
+
+5. Verify connection to the AKS cluster
+``` kubectl config current-context
+``` kubectl get nodes
+``` kubectl get pods -A 
 

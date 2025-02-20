@@ -52,3 +52,4 @@ variable "dns_service_ip" {
   description = "The DNS service IP"
   type        = string
 }
+
