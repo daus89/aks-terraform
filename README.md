@@ -27,7 +27,7 @@ aks-terraform/
 # Terraform commands
 
 
-To see error, use TF_LOG=DEBUG before the tf command, example
+To see error, use TF_LOG=DEBUG before the tf command, example  
 ``` TF_LOG=DEBUG terraform plan -var-file=environments/dev/dev.tfvars  
 
 To destroy resources for specific environment:  
