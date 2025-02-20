@@ -9,10 +9,10 @@ Components or Azure services being deployed:
 To give better isolation, modularity for this TF project, folder will be structured as below:
 
 aks-terraform/
-|--- main.tf    # Contain TF root configuration, including modules
-|--- variables.tf # Global variables
-## Initialize backend for each environment
-terraform init -backend-config=environments/dev/backend.tf
+|--- main.tf    # Contain TF root configuration, including modules  
+|--- variables.tf # Global variables  
+## Initialize backend for each environment  
+terraform init -backend-config=environments/dev/backend.tf  
 
 ## Plan the deploymment
 terraform plan -var-file=environments/dev/dev.tfvars
