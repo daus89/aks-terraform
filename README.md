@@ -8,9 +8,15 @@ Components or Azure services being deployed:
 
 To give better isolation, modularity for this TF project, folder will be structured as below:
 
-aks-terraform/
+aks-terraform/  
 |--- main.tf    # Contain TF root configuration, including modules  
 |--- variables.tf # Global variables  
+|--- provider.tf # contains azure and k8s provider
+|--- environments/ # Environment specific configuration  
+| |---dev/  
+| |---qa/  
+| |---prod/  
+
 ## Initialize backend for each environment  
 terraform init -backend-config=environments/dev/backend.tf  
 
