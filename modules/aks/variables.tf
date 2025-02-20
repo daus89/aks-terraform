@@ -14,3 +14,11 @@ variable "resource_group_name" {
 }
 
 variable "subnet_id" {}
+variable "service_cidr" {
+    description = "The service CIDR"
+    type        = string
+}
+variable "dns_service_ip" {
+    description = "The DNS service IP"
+    type        = string
+}

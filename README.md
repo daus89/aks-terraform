@@ -33,3 +33,20 @@ terraform plan -var-file=environments/dev/dev.tfvars
 
 ## Apply the deployment
 terraform apply -var-file=environments/dev/dev.tfvars -auto-approve
+
+# Challenges
+
+1. To get 
+
+
+
+
+# AKS commands from local workstation
+
+1. Install Azure AKS k8s CLI
+```az aks install-cli
+
+2. Login to azure account and set subscription ID
+``` az login
+``` az account set --subscription "<SUBSCRIPTION ID>"
+

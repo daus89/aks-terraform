@@ -1,3 +1,11 @@
+
+# For locally store tf state
+terraform {
+  backend "local" {
+    path = "environments/dev/terraform.tfstate"
+  }
+}
+
 # For remote backend tf state
 # terraform {
 #  backend "azurerm" {
@@ -7,12 +15,3 @@
 #    key                  = "terraform.tfstate"
 #  }
 # }
-
-
-# For locally store tf state
-terraform {
-    backend "local" {
-    path = "./environments/dev/terraform.tfstate"
-  }
-}
-

@@ -43,3 +43,12 @@ variable "subscription_id" {
   description = "Azure Subscription ID"
   type        = string
 }
+
+variable "service_cidr" {
+  description = "The service CIDR"
+  type        = string
+}
+variable "dns_service_ip" {
+  description = "The DNS service IP"
+  type        = string
+}
