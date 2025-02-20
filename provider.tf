@@ -10,9 +10,11 @@ terraform {
       version = ">=2.10.0"
     }
   }
+}
 
 provider "azurerm" {
   features {}
+  subscription_id = var.subscription_id
 }
 
 provider "kubernetes" {

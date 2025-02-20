@@ -74,7 +74,7 @@ resource "kubernetes_deployment" "nginx" {
 
 # Expose Nginx via Load Balancer service
 
-resource "kubernetes_service" "nginx_service" {
+resource "kubernetes_service" "lb_service" {
   metadata {
     name      = "nginx-service"
     namespace = kubernetes_namespace.env_namespace.metadata[0].name

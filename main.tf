@@ -9,15 +9,21 @@ module "resource_group" {
 # 🚀 Networking Module (VNet, Subnets)
 module "networking" {
   source              = "./modules/networking"
+  vnet_name           = var.vnet_name
   resource_group_name = module.resource_group.rg_name
-  vnet_cidr           = var.vnet_cidr
-  subnet_public_cidr  = var.subnet_public_cidr
-  subnet_private_cidr = var.subnet_private_cidr
+  address_space       = var.address_space
+  public_subnet_cidr  = var.subnet_public_cidr
+  private_subnet_cidr = var.subnet_private_cidr
+  location            = var.location
 }
 
 # 🚀 Deploy AKS Cluster in the Private Subnet
 module "aks" {
   source              = "./modules/aks"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  environment         = var.environment
+  subnet_id           = module.networking.private_subnet_id
 }
 
 # 🚀 Load Balancer for External Access
@@ -25,6 +31,7 @@ module "load_balancer" {
   source              = "./modules/load_balancer"
   resource_group_name = module.resource_group.rg_name
   location           = var.location
+  environment        = var.environment
 }
 
 # 🚀 Deploy Kubernetes Resources (Nginx, Service, Namespace)
@@ -35,5 +42,5 @@ module "k8s" {
 
 # 🚀 Outputs
 output "dev_load_balancer_ip" {
-  value = module.kubernetes.lb_ip
+  value = module.k8s.lb_ip
 }

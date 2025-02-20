@@ -14,17 +14,32 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "vnet_cidr" {
-  description = "VNet CIDR block"
+variable "vnet_name" {
+  description = "The name of the virtual network"
   type        = string
+}
+
+variable "address_space" {
+  description = "The address space for the virtual network"
+  type        = list(string)
 }
 
 variable "subnet_public_cidr" {
-  description = "Public subnet CIDR block"
-  type        = string
+  description = "The CIDR block for the public subnet"
+  type        = list(string)
 }
 
 variable "subnet_private_cidr" {
-  description = "Private subnet CIDR block"
+  description = "The CIDR block for the private subnet"
+  type        = list(string)
+}
+
+variable "subnet_private_dns_zone_name" {
+  type    = string
+  default = "my-private-dns-zone"  # Change this value as needed
+}
+
+variable "subscription_id" {
+  description = "Azure Subscription ID"
   type        = string
 }
