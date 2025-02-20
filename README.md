@@ -1,6 +1,19 @@
 # aks-terraform
 This Terraform project is to deploy a simple Azure and AKS infrastructure to host a simple web application.
 
+## 🛠️ **Prerequisites**
+Ensure you have the following installed:
+- [Terraform](https://developer.hashicorp.com/terraform/downloads) (`>=1.0.0`)
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+
+## 🚀 **Deployment Steps**
+### **1️⃣ Initialize Terraform for an Environment**
+Run the following command from the root directory:
+
+```sh
+terraform init -backend-config=environments/dev/backend.tf
+
 Components or Azure services being deployed:
 1. vnet, subnets (public,private) and network security group
 2. Azure AKS
@@ -26,29 +39,61 @@ aks-terraform/
 
 # Terraform commands
 
+## Deployment Steps
 
-To see error, use TF_LOG=DEBUG before the tf command, example  
-``` TF_LOG=DEBUG terraform plan -var-file=environments/dev/dev.tfvars  
+To deploy the resources for each environment, follow these steps:
 
-To destroy resources for specific environment:  
-``` terraform destroy -var-file=environments/dev/dev.tfvars
+### Dev Environment
+1. Initialize Terraform for the Dev environment:
+```sh
+terraform init -reconfigure -backend-config="path=environments/dev/terraform.tfstate"
+```
+2. Plan the deployment for the Dev environment:
+```sh
+terraform plan -var-file=environments/dev/dev.tfvars
+```
+3. Apply the deployment for the Dev environment:
+```sh
+terraform apply -var-file=environments/dev/dev.tfvars
+```
 
-To initialize, plan and provision the resources per environment:
+### QA Environment
+1. Initialize Terraform for the QA environment:
+```sh
+terraform init -reconfigure -backend-config="path=environments/qa/terraform.tfstate"
+```
+2. Plan the deployment for the QA environment:
+```sh
+terraform plan -var-file=environments/qa/qa.tfvars
+```
+3. Apply the deployment for the QA environment:
+```sh
+terraform apply -var-file=environments/qa/qa.tfvars
+```
 
-For Dev Env
-``` terraform init -reconfigure -backend-config="path=environments/dev/terraform.tfstate"  
-``` terraform plan -var-file=environments/dev/dev.tfvars
-``` terraform apply -var-file=environments/dev/dev.tfvars 
+### Prod Environment
+1. Initialize Terraform for the Prod environment:
+```sh
+terraform init -reconfigure -backend-config="path=environments/prod/terraform.tfstate"
+```
+2. Plan the deployment for the Prod environment:
+```sh
+terraform plan -var-file=environments/prod/prod.tfvars
+```
+3. Apply the deployment for the Prod environment:
+```sh
+terraform apply -var-file=environments/prod/prod.tfvars
+```
 
-For QA Env
-``` terraform init -reconfigure -backend-config="path=environments/qa/terraform.tfstate"  
-``` terraform plan -var-file=environments/qa/qa.tfvars   
-``` terraform apply -var-file=environments/qa/qa.tfvars  
+To see detailed error logs, you can use `TF_LOG=DEBUG` before running the Terraform commands. For example:
+```sh
+TF_LOG=DEBUG terraform plan -var-file=environments/dev/dev.tfvars
+```
 
-For Prod Env
-``` terraform init -reconfigure -backend-config="path=environments/prod/terraform.tfstate"  
-``` terraform plan -var-file=environments/prod/prod.tfvars
-``` terraform apply -var-file=environments/prod/prod.tfvars
+To destroy resources for a specific environment, use the following command:
+```sh
+terraform destroy -var-file=environments/dev/dev.tfvars
+```
 
 # Challenges  
 1. tfstate file stored in root folder instead of environments folder. Still troubleshooting  
