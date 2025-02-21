@@ -128,3 +128,17 @@ kubectl get nodes
 kubectl get pods -A
 ```
 
+# Results
+
+1. The simple nginx web is accessible through browser
+
+
+<img width="1309" alt="Screenshot 2025-02-20 at 9 48 37 PM" src="https://github.com/user-attachments/assets/7f569003-23ad-47e7-8b4b-99b74658b42f" />
+
+
+2. The AKS cluster successfully provisioned
+   
+<img width="714" alt="Screenshot 2025-02-20 at 10 49 23 PM" src="https://github.com/user-attachments/assets/021dcc55-91c8-4c41-82d7-671e818e048a" />
+
+
+
